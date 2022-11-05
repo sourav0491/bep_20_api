@@ -18,7 +18,11 @@ app.use("/api", routes);
 
 const start = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_CONNECTION_URL_HOSTED);
+    await mongoose.connect(
+      process.env.NODE_ENV === "dev"
+        ? process.env.MONGO_CONNECTION_URL_LOCAL
+        : process.env.MONGO_CONNECTION_URL_HOSTED
+    );
     console.log("db connected");
   } catch (error) {
     console.log(error);
