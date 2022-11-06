@@ -1,8 +1,12 @@
 const routes = require("express").Router();
-const { createWallet } = require("../utils");
+const {
+  createWallet,
+  getProvider,
+  getContractAddress,
+  getContractABI,
+} = require("../utils");
 const User = require("../models/user");
 const { ethers } = require("ethers");
-const { CONTRACT_ABI_TESTNET_BSC } = require("../constants");
 const { body, validationResult } = require("express-validator");
 
 const { fetchUserDetails } = require("../middlewares");
@@ -53,9 +57,7 @@ routes.post(
       const { fromPrivateKey, amount } = req.body;
 
       //setting RPC provider
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.QUICKNODE_BSC_TESTNET_PROVIDER
-      );
+      const provider = new ethers.providers.JsonRpcProvider(getProvider());
 
       //account from
       const account_from = {
@@ -67,8 +69,8 @@ routes.post(
 
       //fetching contract for transaction
       const BEP20 = new ethers.Contract(
-        process.env.CONTRACT_ADDRESS_TESTNET_BSC,
-        CONTRACT_ABI_TESTNET_BSC,
+        getContractAddress(),
+        getContractABI(),
         wallet
       );
 
@@ -101,9 +103,7 @@ routes.post(
 
       const { amount, toAddress } = req.body;
       //setting RPC provider
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.QUICKNODE_BSC_TESTNET_PROVIDER
-      );
+      const provider = new ethers.providers.JsonRpcProvider(getProvider());
       //account from
       const account_from = {
         privateKey: req.privateKey,
@@ -113,8 +113,8 @@ routes.post(
 
       //fetching contract for transaction
       const BEP20 = new ethers.Contract(
-        process.env.CONTRACT_ADDRESS_TESTNET_BSC,
-        CONTRACT_ABI_TESTNET_BSC,
+        getContractAddress(),
+        getContractABI(),
         wallet
       );
 
