@@ -31,19 +31,19 @@ const compare = async (storedPassword, suppliedPassword) => {
 };
 
 const getProvider = () => {
-  if (process.env.NODE_ENV === "dev")
+  if (process.env.NODE_ENV?.trim() === "dev")
     return process.env.QUICKNODE_BSC_TESTNET_PROVIDER;
   else return process.env.QUICKNODE_BSC_MAINNET_PROVIDER;
 };
 
 const getContractAddress = () => {
-  if (process.env.NODE_ENV === "dev")
+  if (process.env.NODE_ENV?.trim() === "dev")
     return process.env.CONTRACT_ADDRESS_TESTNET_BSC;
   else return process.env.CONTRACT_ADDRESS_MAINNET_BSC;
 };
 
 const getContractABI = () => {
-  if (process.env.NODE_ENV === "dev") return CONTRACT_ABI_TESTNET_BSC;
+  if (process.env.NODE_ENV?.trim() === "dev") return CONTRACT_ABI_TESTNET_BSC;
   else return CONTRACT_ABI_MAINNET_BSC;
 };
 
